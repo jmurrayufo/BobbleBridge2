@@ -19,4 +19,4 @@ sysinfo.txt
 # User Added
 *.csproj
 *.sln
-*.csproj
+*.userprefs
