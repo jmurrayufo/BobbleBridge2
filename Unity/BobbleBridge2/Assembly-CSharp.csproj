@@ -46,7 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CameraControl.cs" />
      <Compile Include="Assets\MenuButtons.cs" />
+     <Compile Include="Assets\Scripts\OffsetScroller.cs" />
+     <Compile Include="Assets\ShipControl.cs" />
+     <None Include="Assets\Sprites\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

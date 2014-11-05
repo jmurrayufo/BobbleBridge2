@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MenuButtons.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ShipControl.cs">
     <Files>
-      <File FileName="Assets/MenuButtons.cs" Line="16" Column="2" />
+      <File FileName="Assets\Scripts\OffsetScroller.cs" Line="15" Column="18" />
+      <File FileName="Assets\ShipControl.cs" Line="22" Column="2" />
+      <File FileName="Assets\CameraControl.cs" Line="17" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
