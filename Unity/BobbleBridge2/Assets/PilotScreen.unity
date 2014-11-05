@@ -99,7 +99,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 233472243}
   m_Mass: 10
-  m_LinearDrag: .00999999978
+  m_LinearDrag: .00100000005
   m_AngularDrag: .5
   m_GravityScale: 0
   m_FixedAngle: 0
@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a5919c8826ec04989191e4954fd0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipEngineThrust: 2.49000001
+  shipTurningThrust: .389999986
 --- !u!1 &493501609
 GameObject:
   m_ObjectHideFlags: 0
