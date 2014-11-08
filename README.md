@@ -18,3 +18,5 @@ Unity Setup Instructions
 5. In Unity: Go Edit->Project Settings->Editor: 
    * Ensure that 'Mode' is set to 'Visible Meta Files'
 You should now be running everything you need! It is good form to check under Edit -> Project Settings -> Editor, and make sure that "Version Control" is set to "Visible Meta Files". 
+
+Test Modification - Victor is something something something.
