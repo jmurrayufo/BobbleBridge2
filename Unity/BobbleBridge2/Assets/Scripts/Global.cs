@@ -2,14 +2,18 @@
 using System.Collections;
 
 public class Global : MonoBehaviour {
+	  
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+	{
+		return;
 	}
-	
+
+
 	// Update is called once per frame
-	void Update () {
-	
+	void Update ()
+	{
+		return;
 	}
 }
