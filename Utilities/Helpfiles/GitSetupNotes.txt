@@ -1,0 +1,9 @@
+To change the Default Directly of your Git Power Shell(Nov, 8 2014):
+
+1. Open 'GitHub' Utility
+
+2. Click on the Gear in the Upper
+
+3. Click 'Options'
+
+4. Change "Clone Path" to your desired Directory
