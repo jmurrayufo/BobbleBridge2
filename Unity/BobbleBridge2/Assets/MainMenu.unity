@@ -250,3 +250,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btnTexture: {fileID: 2800000, guid: 984c68c0814ce92419d389be9190b6b7, type: 3}
   alienTexture: {fileID: 2800000, guid: ffa43b1d008ba464fb974a20aa993180, type: 3}
+  mainGUIAreaWidth: 120
+  mainGUIAreaHeight: 200
