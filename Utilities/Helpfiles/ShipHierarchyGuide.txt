@@ -1,0 +1,55 @@
+﻿
+
+
+Ships should follow a few general rules:
+   They will exist on the global scale of the hierarchy. 
+   They should not instantiate by default when loading a screen. 
+   A script should instantiate them on an as needed basis. 
+
+
+TODO: This section is a suggestion, and should be agreed upon before code/prefab work begins. 
+Ship Hierarchy Example:
+
+   Ship Object
+      Hull
+         Mount Points
+            Turrets
+            Shields
+            Engines
+
+      Interior
+
+
+   Details:
+      Ship Object
+         - Here we will contain the primary script for each object. 
+         - This script will control all other aspects of this ship. 
+         - ALL ships will share the same master script. This means that the script needs to be able to handle a very wide range of conditions.
+
+      Hull
+         - Keep track of hit points to the ship.
+         - Draws the mesh of the ship.
+         - Draws any special effects not related to a sub system (eg: sparks when damaged).
+         - Has Hit Points. When dropped at or bellow zero, begin ship destruction. 
+
+      Mount Points
+         - Keeps track of the X/Y offset of this location.
+         - Keeps track of allowed slots
+         - Mounting points will only allow ONE rendered point.
+         - A script will handle a list of potential mounting slots.
+         - Several modules may exist on one mounting point, modifying behavior.
+
+      Turrets/Shields/Engines:
+         - Must fit into a Mount Point slot.
+         - Will be called often to help render projectiles, engine effects, shields, etc. 
+         - Will be added directly to the Ship Object's master list of things, to prevent many GetComponent calls. 
+
+      Interior
+         - TODO: Is this on the same scene or a different one then the players? 
+         - Minimal on non-player ships. 
+         - Has environment for players to move within on Player ships. 
+
+
+
+
+
