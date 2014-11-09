@@ -9,7 +9,7 @@ public class Global : MonoBehaviour
 
 
    // Use this for initialization.
-   void Start () 
+   void Start ()
    {
       int localVar; //
    }
