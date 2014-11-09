@@ -31,7 +31,7 @@ public class CameraControl : MonoBehaviour
 	void zoomPilotCamera ( )
 	{
 		float zoomAmount = Input.GetAxis("Mouse ScrollWheel") * mainCameraZoomSpeed;
-		camera.orthographicSize += zoomAmount;
+		camera.orthographicSize -= zoomAmount;
 	}
 
 }
