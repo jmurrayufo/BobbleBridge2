@@ -14,7 +14,7 @@ public class ShipControl : MonoBehaviour {
    
    // Update is called once per frame
    void Update () {
-      if( Input.GetKey(KeyCode.W) )
+      if (Input.GetKey(KeyCode.W))
       {
          gameObject.rigidbody2D.AddRelativeForce( new Vector2(0f,shipEngineThrust) );
          if (shipsEngines.isStopped)
@@ -23,7 +23,7 @@ public class ShipControl : MonoBehaviour {
             Debug.Log("Start Paticle Effect");
          }
       }      
-      else if( Input.GetKey(KeyCode.S) )
+      else if(Input.GetKey(KeyCode.S))
          gameObject.rigidbody2D.AddRelativeForce( new Vector2(0f,-shipEngineThrust) );
       
       else
