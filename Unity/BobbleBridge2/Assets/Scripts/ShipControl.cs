@@ -14,6 +14,12 @@ public class ShipControl : MonoBehaviour {
    
    // Update is called once per frame
    void Update () {
+      // This in network mode, we will only send commands. For now, just return.
+      if (Network.isClient)
+      {
+         // TODO: This controller should send network commands to the server when we are a client
+         return;
+      }
       if (Input.GetKey(KeyCode.W))
       {
          gameObject.rigidbody2D.AddRelativeForce( new Vector2(0f,shipEngineThrust) );
