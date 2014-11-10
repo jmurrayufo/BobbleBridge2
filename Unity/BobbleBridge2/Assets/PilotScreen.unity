@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipEngineThrust: 10
   shipTurningThrust: .389999986
+  dragFactor: 5000
 --- !u!1 &493501609
 GameObject:
   m_ObjectHideFlags: 0
