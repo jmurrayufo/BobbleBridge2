@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a5919c8826ec04989191e4954fd0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipEngineThrust: 2.49000001
+  shipEngineThrust: 10
   shipTurningThrust: .389999986
 --- !u!1 &493501609
 GameObject:
@@ -1486,7 +1486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c7257cbac76b439b164557132ca4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: .0500000007
+  scrollSpeed: .00100000005
 --- !u!23 &2056693930
 Renderer:
   m_ObjectHideFlags: 0
