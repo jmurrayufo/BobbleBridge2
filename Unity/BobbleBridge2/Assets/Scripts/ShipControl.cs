@@ -23,9 +23,10 @@ public class ShipControl : MonoBehaviour {
       if (Input.GetKey(KeyCode.W))
       {
          gameObject.rigidbody2D.AddRelativeForce( new Vector2(0f,shipEngineThrust) );
-         if (shipsEngines.isStopped)
+         if (shipsEngines.enableEmission==false)
          {
-            shipsEngines.Play();
+            //shipsEngines.Play();
+            shipsEngines.enableEmission=true;
             Debug.Log("Start Paticle Effect");
          }
       }      
@@ -34,9 +35,9 @@ public class ShipControl : MonoBehaviour {
       
       else
       {
-         if (!shipsEngines.isStopped)
+         if (shipsEngines.enableEmission==true)
          {
-            shipsEngines.Stop();
+            shipsEngines.enableEmission=false;
             Debug.Log("Stop Paticle Effect");
          }
       }
