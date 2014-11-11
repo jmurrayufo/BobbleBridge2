@@ -73,5 +73,9 @@ public class ShipControl : MonoBehaviour {
       
       if (Input.GetKey (KeyCode.D))
          gameObject.rigidbody2D.AddTorque (-shipTurningThrust);
+
+      if (Input.GetKey (KeyCode.Escape))
+         Application.Quit();
+
    }
 }
