@@ -29,7 +29,7 @@ public class ShipControl : MonoBehaviour {
    
    
    // Update is called once per frame
-   void Update () 
+   void FixedUpdate () 
    {
    
       // This in network mode, we will only send commands. For now, just return.
