@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MenuButtons : MonoBehaviour {
+public class MainMenuGUI : MonoBehaviour {
    
    public Texture btnTexture;
    public Texture alienTexture;
