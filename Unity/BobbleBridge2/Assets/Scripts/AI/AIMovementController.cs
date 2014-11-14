@@ -21,6 +21,8 @@ public class AIMovementController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+      if (Input.GetKeyDown(KeyCode.Space))
+         Debug.Log(thrustController.GetCurrentOutput());
    }
 
    // \TODO AI smarts are in the FixedUpdate function. They need to be pulled out to help support porting of network code.
@@ -54,10 +56,25 @@ public class AIMovementController : MonoBehaviour {
       else
       {
          float thrust = -thrustController.Update(followDistance, distanceToTarget, Time.deltaTime);
-
+         
+         //\todo we should also account for lateral velocity here, and not 'orbit thrust'. 
          myRidgid.AddRelativeForce( new Vector2(0, Mathf.Clamp(thrust, -10f,10f)));
+         
+         Vector3 myForward = transform.rotation * new Vector3(0, thrust, 0);
+         Debug.DrawRay( transform.position, myForward, Color.red, 0, false );
 
       }
+      
+      // Attempt to cancel out lateral thrust
+      // Calculate Difference in velocities
+      Vector3 myVelDiff = rigidbody2D.velocity - target.rigidbody2D.velocity;
+      // Project this velocity onto the right transform of this object. This gives us only the local space 'right/left' velocity
+      // We also clamp this here to prevent insane AI manuvers
+      myVelDiff = Vector3.ClampMagnitude(Vector3.Project(myVelDiff, transform.right),1f);
+      // Apply this calculated force by projecting it into local space
+      myRidgid.AddRelativeForce((Vector2) transform.InverseTransformDirection(-myVelDiff));
+      // For debug help, draw a low showing what we are attempting to do
+      Debug.DrawRay( transform.position, myVelDiff, Color.green, 0, false );
    }
 
 
