@@ -74,7 +74,9 @@ public class AIMovementController : MonoBehaviour {
       // Apply this calculated force by projecting it into local space
       myRidgid.AddRelativeForce((Vector2) transform.InverseTransformDirection(-myVelDiff));
       // For debug help, draw a low showing what we are attempting to do
+#if UNITY_EDITOR
       Debug.DrawRay( transform.position, myVelDiff, Color.green, 0, false );
+#endif
    }
 
 

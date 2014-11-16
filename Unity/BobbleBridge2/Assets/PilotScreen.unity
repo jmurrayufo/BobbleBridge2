@@ -1264,6 +1264,34 @@ MonoBehaviour:
   shipEngineThrust: 5
   shipTurningThrust: .100000001
   dragFactor: 500
+--- !u!1 &234824076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 234824077}
+  m_Layer: 0
+  m_Name: PilotScreenGUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &234824077
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 234824076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.0327253, y: 49.7484894, z: -1.48168945}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1467378262}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1 &361614226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,6 +1484,46 @@ Transform:
   m_Children:
   - {fileID: 2056693928}
   m_Father: {fileID: 493501610}
+  m_RootOrder: 0
+--- !u!1 &1467378260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1467378262}
+  - 114: {fileID: 1467378261}
+  m_Layer: 0
+  m_Name: Steering Controls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1467378261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1467378260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838704f0060ef9c4fa35c1b89f4723fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playersShip: {fileID: 233472243}
+--- !u!4 &1467378262
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1467378260}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 234824077}
   m_RootOrder: 0
 --- !u!1 &1564144074
 GameObject:
