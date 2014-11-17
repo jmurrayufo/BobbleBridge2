@@ -5,6 +5,7 @@ public class PS_Steering_Controls : MonoBehaviour {
 
 
    private float thrustSliderSetting;
+   private int thrustSign;
    static private float thrustMinLegalSetting;
    static private float thrustMaxLegalSetting;
 
@@ -20,6 +21,7 @@ public class PS_Steering_Controls : MonoBehaviour {
       thrustSliderSetting = 0f;
       thrustMinLegalSetting = -.1f;
       thrustMaxLegalSetting = 1f;
+      thrustSign = 0;
       playerControlScript = (ShipControl) playersShip.GetComponent("ShipControl");
       Debug.Log ("got:" + playerControlScript);
 	}
@@ -47,26 +49,50 @@ public class PS_Steering_Controls : MonoBehaviour {
          thrustSliderSetting,
          thrustMaxLegalSetting,
          thrustMinLegalSetting,
-         GUILayout.Height(50)
+         GUILayout.Height(100)
          );
 
-      headingNewSliderSetting = GUILayout.HorizontalSlider(headingSliderSetting,-180f,180f,GUILayout.Height(10),GUILayout.Width(50));
+      headingNewSliderSetting = GUILayout.HorizontalSlider(
+         headingSliderSetting,
+         -180f,
+         180f,
+         GUILayout.Height(10),
+         GUILayout.Width(50)
+         );
 
       GUILayout.EndArea();
 
       if (Input.GetKey(KeyCode.W))
+      {
          thrustNewSliderSetting = Mathf.Clamp(
             thrustSliderSetting + .25f * Time.fixedDeltaTime, 
             thrustMinLegalSetting, 
             thrustMaxLegalSetting
             );
-      
+         if (thrustSign == 0)
+            thrustSign = 1;
+         else if (thrustSign == -1 && thrustNewSliderSetting > 0)
+            thrustNewSliderSetting = 0;
+      }
+
+      if (Input.GetKeyUp (KeyCode.W) && thrustSign == -1)
+         thrustSign = 0;
+
       if(Input.GetKey(KeyCode.S))
+      {
          thrustNewSliderSetting = Mathf.Clamp(
             thrustSliderSetting - .25f * Time.fixedDeltaTime, 
             thrustMinLegalSetting, 
             thrustMaxLegalSetting
             );
+         if (thrustSign == 0)
+            thrustSign = -1;
+         else if (thrustSign == 1 && thrustNewSliderSetting < 0)
+            thrustNewSliderSetting = 0;
+      }
+   
+   if (Input.GetKeyUp (KeyCode.S) && thrustSign == 1)
+         thrustSign = 0;
 
       if(Input.GetKeyDown(KeyCode.Z))
          thrustNewSliderSetting = 0f;
