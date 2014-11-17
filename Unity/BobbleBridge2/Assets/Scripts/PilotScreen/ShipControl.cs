@@ -54,7 +54,6 @@ public class ShipControl : MonoBehaviour {
          {
             //shipsEngines.Play();
             shipsEngines.enableEmission=true;
-            Debug.Log("Start Paticle Effect");
          }
       }      
       else
@@ -62,7 +61,6 @@ public class ShipControl : MonoBehaviour {
          if (shipsEngines.enableEmission==true)
          {
             shipsEngines.enableEmission=false;
-            Debug.Log("Stop Paticle Effect");
          }
       }
 
