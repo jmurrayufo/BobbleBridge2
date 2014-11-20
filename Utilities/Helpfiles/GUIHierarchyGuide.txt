@@ -1,0 +1,18 @@
+
+
+GUI elements will need to deal with a variety of elements and situations. To help keep code organized and event processing in line, we will use a tree design to help coordinate handling of UI elements. 
+
+Global:
+   Overall GUI that will be with the player at all times. 
+
+   This will contain things like the Menu button, Debug info, and global notifications. 
+
+Sub-System:
+   This GUI will be called by the Global GUI every frame. 
+
+   THERE WILL BE NO OnGUI() CALLS IN THIS FUNCTION!
+
+   Global GUI will maintain the state of the Sub-System GUIs active/inactive status.
+
+Sub-System-Sub-Screen:
+   Any mini games or sub menus will be handled here. As with the Sub-System, they will no have OnGUI calls. 
