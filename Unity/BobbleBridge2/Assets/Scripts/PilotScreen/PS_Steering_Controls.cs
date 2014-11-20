@@ -94,15 +94,14 @@ public class PS_Steering_Controls : MonoBehaviour {
       // Draw UI Elements on Compass
       if (headingAssistEnabled)
       {
-         Vector2 headingIndicatorVector = compassRect.center;
          int headingIndicatorSize = 20;
          // Lots of ugly math!
          // We take the center of the compass texture, offset it by half the size of the indicator, then move it by
          //    25 pixels with sin and -cos to put it on a circle. 
          // NOTE: cos is negative here because y is inverted!
          Rect headingIndicatorRect = new Rect(
-            headingIndicatorVector.x-headingIndicatorSize/2+Mathf.Sin (headingNewCompassSetting*Mathf.Deg2Rad)*35,
-            headingIndicatorVector.y-headingIndicatorSize/2-Mathf.Cos (headingNewCompassSetting*Mathf.Deg2Rad)*35,
+            compassRect.center.x-headingIndicatorSize/2+Mathf.Sin (headingNewCompassSetting*Mathf.Deg2Rad)*35,
+            compassRect.center.y-headingIndicatorSize/2-Mathf.Cos (headingNewCompassSetting*Mathf.Deg2Rad)*35,
             headingIndicatorSize,
             headingIndicatorSize
             );
