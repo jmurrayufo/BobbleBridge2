@@ -1512,6 +1512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838704f0060ef9c4fa35c1b89f4723fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  compassTexture: {fileID: 2800000, guid: 8edd804f315ad5a43a2fbf1a401dc38b, type: 3}
   playersShip: {fileID: 233472243}
 --- !u!4 &1467378262
 Transform:
