@@ -3,8 +3,6 @@ using System.Collections;
 
 public class PS_Steering_Controls : MonoBehaviour {
 
-   //! \brief 
-   public Texture compassTexture;
 
    //! \brief Store the actaul numeric setting of the slider.
    private float thrustSliderSetting;
@@ -24,12 +22,18 @@ public class PS_Steering_Controls : MonoBehaviour {
 
    //! \brief Shortcut to the ShipControl object, prevents calls to GetComponent.
    private ShipControl playerControlScript;
+   
+   //! \brief 
+   public Texture compassTexture;
 
    //! \brief Store actural numeric value of heading indicator.
    private float headingCompassSetting;
 
    //! \brief Indicate if heading assist control is currently in use. 
    private bool headingAssistEnabled;
+   
+   //! \brief The targeted heading indicator
+   public Sprite headingDesiredIndicator;
 
 
 	//! Use this for initialization
@@ -62,6 +66,7 @@ public class PS_Steering_Controls : MonoBehaviour {
       // Save defaults for "no change". 
       float thrustNewSliderSetting = thrustSliderSetting;
       float headingNewCompassSetting = headingCompassSetting;
+      Rect compassRect;
 
       // Start GUILayout area.
       GUILayout.BeginArea(rightSideRect);
@@ -75,15 +80,37 @@ public class PS_Steering_Controls : MonoBehaviour {
          );
 
       // Draw Compass
-      GUILayout.Box(compassTexture, GUILayout.Width(50), GUILayout.Height(50));
+      GUILayout.Box(compassTexture, GUILayout.Width(100), GUILayout.Height(100));
+      compassRect = GUILayoutUtility.GetLastRect();
       if (Event.current.type == EventType.MouseDown && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
       {
          Vector2 error = Event.current.mousePosition - GUILayoutUtility.GetLastRect().center;
          //Debug.Log ( Mathf.Atan2(error.x, -error.y));
          headingNewCompassSetting = Mathf.Atan2(error.x, -error.y) * Mathf.Rad2Deg;
+         headingNewCompassSetting = ((float) Mathf.RoundToInt(headingNewCompassSetting/10))*10;
 
       }
 
+      // Draw UI Elements on Compass
+      if (headingAssistEnabled)
+      {
+         Vector2 headingIndicatorVector = compassRect.center;
+         int headingIndicatorSize = 20;
+         Rect headingIndicatorRect = new Rect(
+            headingIndicatorVector.x-headingIndicatorSize/2+Mathf.Sin (headingNewCompassSetting*Mathf.Deg2Rad)*35,
+            headingIndicatorVector.y-headingIndicatorSize/2-Mathf.Cos (headingNewCompassSetting*Mathf.Deg2Rad)*35,
+            headingIndicatorSize,
+            headingIndicatorSize
+            );
+
+         Texture t = headingDesiredIndicator.texture;
+         Rect tr = headingDesiredIndicator.textureRect;
+         Rect r = new Rect(tr.x / t.width, tr.y / t.height, tr.width / t.width, tr.height / t.height );
+         
+         GUI.DrawTextureWithTexCoords(headingIndicatorRect, t, r);
+
+         //GUI.DrawTexture(headingIndicatorRect, headingDesiredIndicator.texture);
+      }
 
       // End GUILayout area. We are done drawing elements. 
       GUILayout.EndArea();
