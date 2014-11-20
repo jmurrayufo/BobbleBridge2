@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PS_Steering_Controls : MonoBehaviour {
 
+   //! \brief 
+   public Texture compassTexture;
+
    //! \brief Store the actaul numeric setting of the slider.
    private float thrustSliderSetting;
 
@@ -23,7 +26,7 @@ public class PS_Steering_Controls : MonoBehaviour {
    private ShipControl playerControlScript;
 
    //! \brief Store actural numeric value of heading indicator.
-   private float headingSliderSetting;
+   private float headingCompassSetting;
 
    //! \brief Indicate if heading assist control is currently in use. 
    private bool headingAssistEnabled;
@@ -45,7 +48,7 @@ public class PS_Steering_Controls : MonoBehaviour {
 	
 	}
    
-   //! \todo Test todo
+   //! \TODO This section needs to be reworked into a custom call at some point. This will be owned by the global GUI object.
    void OnGUI()
    {
       // Build a Rect to save the direction controls in.
@@ -58,7 +61,7 @@ public class PS_Steering_Controls : MonoBehaviour {
          );
       // Save defaults for "no change". 
       float thrustNewSliderSetting = thrustSliderSetting;
-      float headingNewSliderSetting = headingSliderSetting;
+      float headingNewCompassSetting = headingCompassSetting;
 
       // Start GUILayout area.
       GUILayout.BeginArea(rightSideRect);
@@ -71,14 +74,16 @@ public class PS_Steering_Controls : MonoBehaviour {
          GUILayout.Height(100)
          );
 
-      // Draw horizontal slider for heading angle, and force it to be 10x50 px big. 
-      headingNewSliderSetting = GUILayout.HorizontalSlider(
-         headingSliderSetting,
-         -180f,
-         180f,
-         GUILayout.Height(10),
-         GUILayout.Width(50)
-         );
+      // Draw Compass
+      GUILayout.Box(compassTexture, GUILayout.Width(50), GUILayout.Height(50));
+      if (Event.current.type == EventType.MouseDown && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
+      {
+         Vector2 error = Event.current.mousePosition - GUILayoutUtility.GetLastRect().center;
+         //Debug.Log ( Mathf.Atan2(error.x, -error.y));
+         headingNewCompassSetting = Mathf.Atan2(error.x, -error.y) * Mathf.Rad2Deg;
+
+      }
+
 
       // End GUILayout area. We are done drawing elements. 
       GUILayout.EndArea();
@@ -140,7 +145,7 @@ public class PS_Steering_Controls : MonoBehaviour {
 
       // If the Mouse inputs changed the heading, we are using the Heading 
       //    Assist controls. Set them here.
-      if ( headingNewSliderSetting != headingSliderSetting )
+      if ( headingNewCompassSetting != headingCompassSetting )
       {
          headingAssistEnabled = true;
       }
@@ -148,12 +153,12 @@ public class PS_Steering_Controls : MonoBehaviour {
       //    inputs. Both will disable the heading assit control.
       else if(Input.GetKey(KeyCode.A))
       {
-         headingNewSliderSetting -= 25f * Time.fixedDeltaTime;
+         headingNewCompassSetting -= 25f * Time.fixedDeltaTime;
          headingAssistEnabled = false;
       }
       else if(Input.GetKey(KeyCode.D))
       {
-         headingNewSliderSetting += 25f * Time.fixedDeltaTime;
+         headingNewCompassSetting += 25f * Time.fixedDeltaTime;
          headingAssistEnabled = false;
       } 
 
@@ -166,25 +171,25 @@ public class PS_Steering_Controls : MonoBehaviour {
       }
 
       // If we changed the heading OR turned, we will save it and tell the ship here. 
-      if (headingNewSliderSetting != headingSliderSetting)
+      if (headingNewCompassSetting != headingCompassSetting)
       {
          // If heading assist is enabled, we tell the ship to hold a heading.
          if (headingAssistEnabled)
          {
             // Wrap the heading value back to (-180,180) inclusive
-            if ( headingNewSliderSetting > 180f )
-               headingNewSliderSetting -= 360f;
-            else if ( headingNewSliderSetting < -180f)
-               headingNewSliderSetting += 360f;
+            if ( headingNewCompassSetting > 180f )
+               headingNewCompassSetting -= 360f;
+            else if ( headingNewCompassSetting < -180f)
+               headingNewCompassSetting += 360f;
             
-            headingSliderSetting = headingNewSliderSetting;
-            playerControlScript.SetHeading( headingSliderSetting );
+            headingCompassSetting = headingNewCompassSetting;
+            playerControlScript.SetHeading( headingCompassSetting );
          }
          // If we arn't in heading assist mode, we need to tell the player to turn by a given amount.
          else
          {
             //! \TODO Should the ship accept different turn amounts?
-            playerControlScript.ActivateTurn( headingNewSliderSetting - headingSliderSetting );
+            playerControlScript.ActivateTurn( headingNewCompassSetting - headingCompassSetting );
          }
 
       }
