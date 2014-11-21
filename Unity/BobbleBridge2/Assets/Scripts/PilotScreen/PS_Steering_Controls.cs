@@ -23,6 +23,7 @@ public class PS_Steering_Controls : MonoBehaviour {
    //! \brief Shortcut to the ShipControl object, prevents calls to GetComponent.
    private ShipControl playerControlScript;
    
+   
    //! \brief 
    public Texture compassTexture;
 
@@ -56,7 +57,6 @@ public class PS_Steering_Controls : MonoBehaviour {
    void OnGUI()
    {
       // Build a Rect to save the direction controls in.
-      //! \todo This variable could be saved to prevent constatnt Rect allocations!
       Rect rightSideRect = new Rect(
          Screen.width*.9f,
          Screen.height*.2f,
@@ -66,7 +66,8 @@ public class PS_Steering_Controls : MonoBehaviour {
       // Save defaults for "no change". 
       float thrustNewSliderSetting = thrustSliderSetting;
       float headingNewCompassSetting = headingCompassSetting;
-      Rect compassRect;
+
+      // First we will handle Mouse inputs, and draw the GUI for the user
 
       // Start GUILayout area.
       GUILayout.BeginArea(rightSideRect);
@@ -80,12 +81,14 @@ public class PS_Steering_Controls : MonoBehaviour {
          );
 
       // Draw Compass
+      //! \TODO These numbers are magic numbers, and need to be removed!
       GUILayout.Box(compassTexture, GUILayout.Width(100), GUILayout.Height(100));
-      compassRect = GUILayoutUtility.GetLastRect();
+      // We need to save a copy as we draw other items ontop of this!
+      Rect compassRect = GUILayoutUtility.GetLastRect();
       if (Event.current.type == EventType.MouseDown && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
       {
          Vector2 error = Event.current.mousePosition - GUILayoutUtility.GetLastRect().center;
-         //Debug.Log ( Mathf.Atan2(error.x, -error.y));
+         // Note that we need a negative y value here, as y is upside down!
          headingNewCompassSetting = Mathf.Atan2(error.x, -error.y) * Mathf.Rad2Deg;
          headingNewCompassSetting = ((float) Mathf.RoundToInt(headingNewCompassSetting/10))*10;
 
@@ -105,22 +108,22 @@ public class PS_Steering_Controls : MonoBehaviour {
             headingIndicatorSize,
             headingIndicatorSize
             );
-
+         
+         // Following code found on stackoverflow! Exellent example of getting the sub texture of a sprite!
          Texture t = headingDesiredIndicator.texture;
          Rect tr = headingDesiredIndicator.textureRect;
          Rect r = new Rect(tr.x / t.width, tr.y / t.height, tr.width / t.width, tr.height / t.height );
          
          GUI.DrawTextureWithTexCoords(headingIndicatorRect, t, r);
-
-         //GUI.DrawTexture(headingIndicatorRect, headingDesiredIndicator.texture);
       }
 
       // End GUILayout area. We are done drawing elements. 
       GUILayout.EndArea();
 
+
       // We now handle Keyboard input. 
 
-      // W will accelerate the ship forward. This may result in forward thrust, or reduction of negative thrust.
+      // W will increase thrust to the ship.
       if (Input.GetKey(KeyCode.W))
       {
          // Adjust the throttle 'up'. 
@@ -155,7 +158,7 @@ public class PS_Steering_Controls : MonoBehaviour {
          // If we are already holding at zero, we can be positive now.
          if (thrustSign == 0)
             thrustSign = -1;
-         // If we are in the negative range, we CANNOT exceed zero. This provides a 'locking' behavior at zero.
+         // If we are in the positive range, we CANNOT pass zero. This provides a 'locking' behavior at zero.
          else if (thrustSign == 1 && thrustNewSliderSetting < 0)
             thrustNewSliderSetting = 0;
       }
@@ -179,7 +182,7 @@ public class PS_Steering_Controls : MonoBehaviour {
       {
          headingAssistEnabled = true;
       }
-      // If the GUI didn't change settings, we need to check for left and right 
+      // If the GUI didn't change settings, we need to check for left and right
       //    inputs. Both will disable the heading assit control.
       else if(Input.GetKey(KeyCode.A))
       {
@@ -190,7 +193,7 @@ public class PS_Steering_Controls : MonoBehaviour {
       {
          headingNewCompassSetting += 25f * Time.fixedDeltaTime;
          headingAssistEnabled = false;
-      } 
+      }
 
       // If we had a new throttle setting, we save it and tell the ship the input.
       if ( thrustNewSliderSetting != thrustSliderSetting )
