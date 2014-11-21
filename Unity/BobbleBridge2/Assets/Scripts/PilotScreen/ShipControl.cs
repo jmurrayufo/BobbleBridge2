@@ -49,6 +49,8 @@ public class ShipControl : MonoBehaviour {
 
       if (this.thrustControlSetting != 0f)
       {
+         shipsEngines.emissionRate = 20f * Mathf.Abs (thrustControlSetting);
+         shipsEngines.startSpeed = 5f *  Mathf.Abs (thrustControlSetting);
          gameObject.rigidbody2D.AddRelativeForce( new Vector2(0f,shipEngineThrust * thrustControlSetting) );
          if (shipsEngines.enableEmission==false)
          {
