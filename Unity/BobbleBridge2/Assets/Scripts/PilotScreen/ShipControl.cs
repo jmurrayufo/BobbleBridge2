@@ -122,4 +122,9 @@ public class ShipControl : MonoBehaviour {
       this.headingAssistControlEnabled = false;
       this.headingControlSetting += newTurning;
    }
+   
+   public float GetCurrentFacing()
+   {
+      return 360f - gameObject.transform.rotation.eulerAngles.z;
+   }
 }

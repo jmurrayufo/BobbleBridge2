@@ -35,6 +35,9 @@ public class PS_Steering_Controls : MonoBehaviour {
    
    //! \brief The targeted heading indicator
    public Sprite headingDesiredIndicator;
+   
+   //! \brief The targeted heading indicator
+   public Sprite headingActualIndicator;
 
 
 	//! Use this for initialization
@@ -66,6 +69,7 @@ public class PS_Steering_Controls : MonoBehaviour {
       // Save defaults for "no change". 
       float thrustNewSliderSetting = thrustSliderSetting;
       float headingNewCompassSetting = headingCompassSetting;
+      float headingCurrentFacing;
       Rect compassRect;
       Vector2 compassError;
       int headingIndicatorSize = 20;
@@ -120,6 +124,24 @@ public class PS_Steering_Controls : MonoBehaviour {
          
          GUI.DrawTextureWithTexCoords(headingIndicatorRect, t, r);
       }
+      if (true)
+      {
+         headingCurrentFacing = playerControlScript.GetCurrentFacing();
+         headingIndicatorRect = new Rect(
+            compassRect.center.x-headingIndicatorSize/2+Mathf.Sin (headingCurrentFacing*Mathf.Deg2Rad)*25,
+            compassRect.center.y-headingIndicatorSize/2-Mathf.Cos (headingCurrentFacing*Mathf.Deg2Rad)*25,
+            headingIndicatorSize,
+            headingIndicatorSize
+            );
+         
+         // Following code found on stackoverflow! Exellent example of getting the sub texture of a sprite!
+         Texture t = headingActualIndicator.texture;
+         Rect tr = headingActualIndicator.textureRect;
+         Rect r = new Rect(tr.x / t.width, tr.y / t.height, tr.width / t.width, tr.height / t.height );
+         
+         GUI.DrawTextureWithTexCoords(headingIndicatorRect, t, r);
+      }
+      
       // End GUILayout area. We are done drawing elements. 
       GUILayout.EndArea();
 

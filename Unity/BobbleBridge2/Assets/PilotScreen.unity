@@ -1516,6 +1516,8 @@ MonoBehaviour:
   compassTexture: {fileID: 2800000, guid: 8edd804f315ad5a43a2fbf1a401dc38b, type: 3}
   headingDesiredIndicator: {fileID: 21300010, guid: 200d678156c11234a805bff2d4fe4bc3,
     type: 3}
+  headingActualIndicator: {fileID: 21300004, guid: 200d678156c11234a805bff2d4fe4bc3,
+    type: 3}
 --- !u!4 &1467378262
 Transform:
   m_ObjectHideFlags: 0
