@@ -58,25 +58,30 @@ public class PS_Steering_Controls : MonoBehaviour {
    {
       // Build a Rect to save the direction controls in.
       Rect rightSideRect = new Rect(
-         Screen.width*.9f,
-         Screen.height*.2f,
-         Screen.width*.1f,
+         Screen.width-150,
+         Screen.height*.2f,   
+         150,
          Screen.height*.6f
          );
       // Save defaults for "no change". 
       float thrustNewSliderSetting = thrustSliderSetting;
       float headingNewCompassSetting = headingCompassSetting;
-
+      Rect compassRect;
+      Vector2 compassError;
+      int headingIndicatorSize = 20;
+      Rect headingIndicatorRect;
+      
       // First we will handle Mouse inputs, and draw the GUI for the user
 
       // Start GUILayout area.
       GUILayout.BeginArea(rightSideRect);
-
+      
       // Draw vertical slider for ships thrust, and force it to be 100 px tall.
       thrustNewSliderSetting = GUILayout.VerticalSlider(
          thrustSliderSetting,
          thrustMaxLegalSetting,
          thrustMinLegalSetting,
+         GUILayout.Width(150),
          GUILayout.Height(100)
          );
 
@@ -84,12 +89,12 @@ public class PS_Steering_Controls : MonoBehaviour {
       //! \TODO These numbers are magic numbers, and need to be removed!
       GUILayout.Box(compassTexture, GUILayout.Width(100), GUILayout.Height(100));
       // We need to save a copy as we draw other items ontop of this!
-      Rect compassRect = GUILayoutUtility.GetLastRect();
+      compassRect = GUILayoutUtility.GetLastRect();
       if (Event.current.type == EventType.MouseDown && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
       {
-         Vector2 error = Event.current.mousePosition - GUILayoutUtility.GetLastRect().center;
+         compassError = Event.current.mousePosition - GUILayoutUtility.GetLastRect().center;
          // Note that we need a negative y value here, as y is upside down!
-         headingNewCompassSetting = Mathf.Atan2(error.x, -error.y) * Mathf.Rad2Deg;
+         headingNewCompassSetting = Mathf.Atan2(compassError.x, -compassError.y) * Mathf.Rad2Deg;
          headingNewCompassSetting = ((float) Mathf.RoundToInt(headingNewCompassSetting/10))*10;
 
       }
@@ -97,12 +102,11 @@ public class PS_Steering_Controls : MonoBehaviour {
       // Draw UI Elements on Compass
       if (headingAssistEnabled)
       {
-         int headingIndicatorSize = 20;
          // Lots of ugly math!
          // We take the center of the compass texture, offset it by half the size of the indicator, then move it by
          //    25 pixels with sin and -cos to put it on a circle. 
          // NOTE: cos is negative here because y is inverted!
-         Rect headingIndicatorRect = new Rect(
+         headingIndicatorRect = new Rect(
             compassRect.center.x-headingIndicatorSize/2+Mathf.Sin (headingNewCompassSetting*Mathf.Deg2Rad)*35,
             compassRect.center.y-headingIndicatorSize/2-Mathf.Cos (headingNewCompassSetting*Mathf.Deg2Rad)*35,
             headingIndicatorSize,
@@ -116,7 +120,6 @@ public class PS_Steering_Controls : MonoBehaviour {
          
          GUI.DrawTextureWithTexCoords(headingIndicatorRect, t, r);
       }
-
       // End GUILayout area. We are done drawing elements. 
       GUILayout.EndArea();
 
