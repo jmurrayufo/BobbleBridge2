@@ -108,10 +108,12 @@ public class ShipControl : MonoBehaviour {
 
    }
 
+
    public void SetThrust(float newThrustSetting)
    {
       this.thrustControlSetting = newThrustSetting;
    }
+
 
    public void SetHeading(float newHeadingSetting)
    {
@@ -119,14 +121,36 @@ public class ShipControl : MonoBehaviour {
       this.headingControlSetting = newHeadingSetting;
    }
 
+
    public void ActivateTurn(float newTurning)
    {
       this.headingAssistControlEnabled = false;
       this.headingControlSetting += newTurning;
    }
-   
+
+
+   public float GetCurrentCourse()
+   {
+      float course = Mathf.Atan2( gameObject.rigidbody2D.velocity.x, gameObject.rigidbody2D.velocity.y ) * Mathf.Rad2Deg;
+      if (course < 0f)
+      {
+         course+= 360f;
+      }
+      return course;
+   }
+
+
    public float GetCurrentFacing()
    {
       return 360f - gameObject.transform.rotation.eulerAngles.z;
    }
+
+
+
+   public float GetCurrentSpeed()
+   {
+      return gameObject.rigidbody2D.velocity.magnitude;
+   }
+
+
 }

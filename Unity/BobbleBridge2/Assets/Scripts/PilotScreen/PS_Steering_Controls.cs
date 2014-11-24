@@ -61,10 +61,10 @@ public class PS_Steering_Controls : MonoBehaviour {
    {
       // Build a Rect to save the direction controls in.
       Rect rightSideRect = new Rect(
-         Screen.width-150,
+         Screen.width*.8f,
          Screen.height*.2f,   
-         150,
-         Screen.height*.6f
+         Screen.width*.2f,
+         Screen.height*.7f
          );
       // Save defaults for "no change". 
       float thrustNewSliderSetting = thrustSliderSetting;
@@ -75,7 +75,9 @@ public class PS_Steering_Controls : MonoBehaviour {
       int headingIndicatorSize = 20;
       Rect headingIndicatorRect;
       
+
       // First we will handle Mouse inputs, and draw the GUI for the user
+
 
       // Start GUILayout area.
       GUILayout.BeginArea(rightSideRect);
@@ -88,6 +90,9 @@ public class PS_Steering_Controls : MonoBehaviour {
          GUILayout.Width(150),
          GUILayout.Height(100)
          );
+
+      // Draw Control Buttons
+      headingAssistEnabled = GUILayout.Toggle(headingAssistEnabled,"Heading Assistance");
 
       // Draw Compass
       //! \TODO These numbers are magic numbers, and need to be removed!
@@ -141,6 +146,10 @@ public class PS_Steering_Controls : MonoBehaviour {
          
          GUI.DrawTextureWithTexCoords(headingIndicatorRect, t, r);
       }
+
+      GUILayout.Label(" Speed: " + playerControlScript.GetCurrentSpeed());
+      GUILayout.Label("Course: " + playerControlScript.GetCurrentCourse());
+      GUILayout.Label("Facing: " + playerControlScript.GetCurrentFacing());
       
       // End GUILayout area. We are done drawing elements. 
       GUILayout.EndArea();
@@ -212,12 +221,10 @@ public class PS_Steering_Controls : MonoBehaviour {
       else if(Input.GetKey(KeyCode.A))
       {
          headingNewCompassSetting -= 25f * Time.fixedDeltaTime;
-         headingAssistEnabled = false;
       }
       else if(Input.GetKey(KeyCode.D))
       {
          headingNewCompassSetting += 25f * Time.fixedDeltaTime;
-         headingAssistEnabled = false;
       }
 
       // If we had a new throttle setting, we save it and tell the ship the input.
